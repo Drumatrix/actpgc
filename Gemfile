@@ -14,7 +14,7 @@ group :development, :test do
   gem 'spork', '0.9.2'
 end
 
-group :deveopment do
+group :development do
   gem 'annotate', '2.5.0'
 end
 
@@ -36,4 +36,5 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'rb-inotify', '0.8.8'
   gem 'libnotify', '0.5.9'
+  gem 'factory_girl_rails', '4.1.0'
 end 
