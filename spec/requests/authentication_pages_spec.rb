@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 describe "Authentication" do
 
   subject { page }
@@ -8,7 +7,7 @@ describe "Authentication" do
     before { visit signin_path }
 
     it { should have_title_and_heading ('Sign in') }
-  end  
+  end
 
   describe "signin" do
     before { visit signin_path }
@@ -40,7 +39,7 @@ describe "Authentication" do
 
       describe "followed by signout" do
         before { click_link "Sign out" }
-	it { should have_signin_link }
+	      it { should have_signin_link }
       end
     end
   end
@@ -53,7 +52,7 @@ describe "Authentication" do
       describe "when attempting to visit a protected page" do
         before do
           visit edit_user_path(user)
-	  valid_signin(user)
+	        valid_signin(user)
         end
 
         describe "after signing in" do
@@ -61,8 +60,10 @@ describe "Authentication" do
           it "should render the desired protected page" do
             page.should have_title('Edit user')
           end
-
-	describe "in the Users controller" do
+        end
+      end   
+      
+      describe "in the Users controller" do
 
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
@@ -71,14 +72,15 @@ describe "Authentication" do
 
         describe "submitting to the update action" do
           before { put user_path(user) }
-          specify { response.should redirect_to(signin_url) }
+            specify { response.should redirect_to(signin_url) }
         end
 
         describe "visiting user index" do
-          before { visit users_path }
-          it { should have_title('Sign in') }
+            before { visit users_path }
+            it { should have_title('Sign in') }
         end
       end
+    end
 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
@@ -105,8 +107,6 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { response.should redirect_to(root_url) }        
- 
-
       end
     end
   end

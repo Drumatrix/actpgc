@@ -32,7 +32,7 @@ describe "User pages" do
 
     describe "delete links" do
 
-      it { should_not have_delete_link }
+      it { should_not have_delete_user_link }
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
@@ -41,11 +41,11 @@ describe "User pages" do
           visit users_path
         end
 
-        it { should have_delete_link(user_path(User.first)) }
+        it { should have_delete_user_link(User.first) }
         it "should be able to delete another user" do
-          expect { click_link('delete') }.to change(User, :count).by(-1)
+          expect { click_link('Delete') }.to change(User, :count).by(-1)
         end
-        it { should_not have_delete_link(user_path(admin)) }
+        it { should_not have_delete_user_link(admin) }
       end
     end
   end
@@ -76,8 +76,8 @@ describe "User pages" do
       describe "after submission" do
         before { click_button submit }
 
-        it { should have_title ('Sign up') }
-        it { should have_validation_error_messages('error') }
+        it { should have_title('Sign up') }
+        it { should have_validation_error_message('error') }
       end
     end
 
@@ -122,7 +122,10 @@ describe "User pages" do
     describe "with valid information" do
       let(:new_name)  { "New Name" }
       let(:new_email) { "new@example.com" }
-      before { fill_in_signup_form (user, new_name, new_email) }
+      before do
+        fill_in_signup_form(user, new_name, new_email)
+        click_button "Save changes"
+      end
 
       it { should have_title(new_name) }
       it { should have_success_message }

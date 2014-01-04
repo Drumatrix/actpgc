@@ -45,7 +45,7 @@ RSpec::Matchers.define :have_title_and_heading do |title, heading = title|
   end
 end
 
-RSpec::Matchers.define :have_validation_error_messages do |message|
+RSpec::Matchers.define :have_validation_error_message do |message|
   match do |page|
     page.should have_selector 'div', text: message  
     page.should have_selector 'div#error_explanation li'        
@@ -70,7 +70,7 @@ RSpec::Matchers.define :have_settings_link do |user|
   end
 end
 
-RSpec::Matchers.define :have_delete_link do |user = nil|
+RSpec::Matchers.define :have_delete_user_link do |user = nil|
   match do |page|
     if user.nil?
       page.should have_link('Delete')
@@ -100,13 +100,18 @@ end
 
 RSpec::Matchers.define :have_change_profile_pic_link do
   match do |page|
-    page.should have_link('change', href: 'http://gravatar.com/emails') }
+    page.should have_link('change', href: 'http://gravatar.com/emails')
   end
 end
 
 RSpec::Matchers.define :have_list_item do |item|
   match do |page|
-    page.should have_selector('li', text: user.name)
+    page.should have_selector('li', text: item)
   end
 end
 
+RSpec::Matchers.define :have_users_link do
+  match do |page|
+    page.should have_link('Users', href: users_path)
+  end
+end
